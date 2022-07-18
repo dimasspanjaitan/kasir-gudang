@@ -119,23 +119,36 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col">
-                                <input type="text" name="nama_barang" placeholder="Nama Barang" class="form-control" required>
+                        <div class="col">
+                                <select name="barang_keluar" class="form-control">
+                                    <?php
+                                        $getdata = mysqli_query($connect, "SELECT * FROM barang");
+                                        while($data = mysqli_fetch_array($getdata) ){
+                                            $id = $data['id'];
+                                            $nama_barang = $data['nama_barang'];
+                                    ?>
+                                    
+                                    <option value="<?= $id; ?>"> <?= $nama_barang; ?> </option>
+
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
                             </div>
                             <div class="col">
-                                <input type="number" name="stok" placeholder="Jumlah Stok" class="form-control" required>
+                                <input type="number" name="qty" placeholder="Jumlah Quantity" class="form-control" required>
                             </div>
                         </div>
                         <div class="row pt-3">
                             <div class="col">
-                                <input type="text" name="deskripsi" placeholder="Deskripsi" class="form-control" required>
+                                <input type="text" name="keterangan" placeholder="Keterangan" class="form-control" required>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save">Simpan</button>
+                        <button type="submit" class="btn btn-success" name="save_keluar">Simpan</button>
                     </div>
                 </form>
 

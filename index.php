@@ -135,7 +135,7 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save">Simpan</button>
+                        <button type="submit" class="btn btn-success" name="save_barang">Simpan</button>
                     </div>
                 </form>
 
