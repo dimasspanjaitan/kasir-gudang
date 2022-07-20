@@ -8,7 +8,7 @@
         $password = $_POST['password'];
 
         // cocokkan data dari input ke data login di database, ada atau tidak
-        $cekdatabase = mysqli_query($connect, "SELECT * FROM login WHERE email='$email' AND password='$password'");
+        $cekdatabase = mysqli_query($connect, "SELECT * FROM users  WHERE email='$email' AND password='$password'");
         $hitung = mysqli_num_rows($cekdatabase); // hitung jumlah data yang cocok
 
         if ($hitung>0) {

@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Barang Masuk - Kasir Gudang</title>
+        <title>Supplier - Kasir Gudang</title>
         <link href="css/datatables-style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
@@ -41,7 +41,7 @@
                                 Barang Keluar
                             </a>
                             <a class="nav-link" href="supplier.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></i></div>
                                 Supplier
                             </a>
                         </div>
@@ -56,7 +56,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Barang Masuk</h1>
+                        <h1 class="mt-4">Data Supplier</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <!-- Button to Open the Modal -->
@@ -68,42 +68,33 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Tanggal</th>
-                                            <th>Nama Barang</th>
-                                            <th>Supplier</th>
-                                            <th>User</th>
-                                            <th>Jumlah</th>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Telepon</th>
                                             <th>Keterangan</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
                                         <?php
-                                            $getdata_masuk = mysqli_query($connect, "SELECT * FROM masuk INNER JOIN barang ON barang.id = masuk.id_barang INNER JOIN supplier ON supplier.id = masuk.id_supplier INNER JOIN users ON users.id = masuk.id_user");
-                                            foreach($getdata_masuk as $data){
-                                                $tanggal = $data['tanggal'];
-                                                $nama_barang = $data['nama_barang'];
-                                                $supplier = $data['nama_supplier'];
-                                                $user = $data['nama_user'];
-                                                $jumlah = $data['qty'];
-                                                $keterangan = $data['keterangan_masuk'];
+                                            $getdata_supplier = mysqli_query($connect, "SELECT * FROM supplier");
+                                            foreach($getdata_supplier as $datas){
+                                                $id = $datas['id'];
+                                                $nama_supplier = $datas['nama_supplier'];
+                                                $alamat = $datas['alamat'];
+                                                $telp = $datas['telp'];
+                                                $keterangan = $datas['keterangan_supplier'];
                                         ?>
                                             <tr>
-                                                <td><?= $tanggal ?></td>
-                                                <td><?= $nama_barang ?></td>
-                                                <td><?= $supplier ?></td>
-                                                <td><?= $user ?></td>
-                                                <td><?= $jumlah ?></td>
+                                                <td width="5px"><?= $id ?></td>
+                                                <td><?= $nama_supplier ?></td>
+                                                <td><?= $alamat ?></td>
+                                                <td><?= $telp ?></td>
                                                 <td><?= $keterangan ?></td>
-                                                <td>
-                                                    
-                                                </td>
                                             </tr>
                                         <?php
                                             }
                                         ?>
-                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -125,7 +116,7 @@
         <script src="js/datatables-simple-demo.js"></script>
     </body>
 
-    <!-- The Modal -->
+   <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -133,88 +124,37 @@
                 <form method="POST">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Tambah Barang Masuk</h4>
+                        <h4 class="modal-title">Tambah Supplier</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <!-- Select data barang -->
                         <div class="row">
                             <div class="col">
-                                <label for="barang_masuk" class="form-label"><small>Nama Barang</small></label>
-                                <select name="barang_masuk" id="barang_masuk" class="form-control">
-                                    <?php
-                                        $data_barang = mysqli_query($connect, "SELECT * FROM barang");
-                                        while($datab = mysqli_fetch_array($data_barang) ){
-                                            $id = $datab['id'];
-                                            $nama_barang = $datab['nama_barang'];
-                                    ?>
-                                    
-                                    <option value="<?= $id; ?>"> <?= $nama_barang; ?> </option>
-
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <!-- input jumlah barang keluar -->
-                            <div class="col">
-                                <label for="qty" class="form-label"><small>Jumlah Barang</small></label>
-                                <input type="number" name="qty" id="qty" placeholder="Jumlah Quantity" class="form-control" required>
-                            </div>
-                        </div>
-                        <!-- Select data supplier -->
-                        <div class="row pt-3">
-                            <div class="col">
-                                <label for="supplier_masuk" class="form-label"><small>Nama Supplier</small></label>
-                                <select name="supplier_masuk" id="supplier_masuk" class="form-control">
-                                    <?php
-                                        $data_supplier = mysqli_query($connect, "SELECT * FROM supplier");
-                                        while($datas = mysqli_fetch_array($data_supplier) ){
-                                            $id = $datas['id'];
-                                            $nama_supplier = $datas['nama_supplier'];
-                                    ?>
-                                    
-                                    <option value="<?= $id; ?>"> <?= $nama_supplier; ?> </option>
-
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Select data user penerima -->
-                        <div class="row pt-3">
-                            <div class="col">
-                                <label for="user_masuk" class="form-label"><small>Penerima/User</small></label>
-                                <select name="user_masuk" id="user_masuk" class="form-control">
-                                    <?php
-                                        $data_users = mysqli_query($connect, "SELECT * FROM users");
-                                        while($datau = mysqli_fetch_array($data_users) ){
-                                            $id = $datau['id'];
-                                            $nama_user = $datau['nama_user'];
-                                    ?>
-                                    
-                                    <option value="<?= $id; ?>"> <?= $nama_user; ?> </option>
-
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
+                                <input type="text" name="nama_supplier" placeholder="Nama" class="form-control" required>
                             </div>
                         </div>
                         <div class="row pt-3">
                             <div class="col">
-                                <label for="keterangan_masuk" class="form-label"><small>Keterangan</small></label>
-                                <input type="text" name="keterangan_masuk" id="keterangan_masuk" placeholder="Keterangan" class="form-control">
+                                <input type="text" name="alamat" placeholder="Alamat" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col">
+                                <input type="text" name="telp" placeholder="Nomor Telp: 08xx-xxxx-xxxx" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col">
+                                <input type="text" name="keterangan_supplier" placeholder="Keterangan" class="form-control" required>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save_masuk">Simpan</button>
+                        <button type="submit" class="btn btn-success" name="save_supplier">Simpan</button>
                     </div>
                 </form>
 

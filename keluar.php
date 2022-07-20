@@ -19,7 +19,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">KASIR GUDANG</a>
+            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -40,7 +40,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
                             </a>
-                            
+                            <a class="nav-link" href="supplier.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                Supplier
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -65,19 +68,35 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Tanggal</th>
                                             <th>Nama Barang</th>
-                                            <th>Stok</th>
-                                            <th>Deskripsi</th>
+                                            <th>Supplier</th>
+                                            <th>Jumlah</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                        </tr>
+                                        
+                                        <?php
+                                            $getdata_keluar = mysqli_query($connect, "SELECT * FROM keluar INNER JOIN barang ON barang.id = keluar.id_barang INNER JOIN supplier ON supplier.id = keluar.id_supplier");
+                                            foreach($getdata_keluar as $data){
+                                                $tanggal = $data['tanggal'];
+                                                $nama_barang = $data['nama_barang'];
+                                                $supplier = $data['nama_supplier'];
+                                                $jumlah = $data['qty'];
+                                                $keterangan = $data['keterangan_keluar'];
+                                        ?>
+                                            <tr>
+                                                <td><?= $tanggal ?></td>
+                                                <td><?= $nama_barang ?></td>
+                                                <td><?= $supplier ?></td>
+                                                <td><?= $jumlah ?></td>
+                                                <td><?= $keterangan ?></td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -87,12 +106,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            <div class="text-muted">Copyright &copy; Saya Sendiri 2022</div>
                         </div>
                     </div>
                 </footer>
@@ -118,14 +132,16 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
+                        <!-- Select data barang -->
                         <div class="row">
-                        <div class="col">
-                                <select name="barang_keluar" class="form-control">
+                            <div class="col">
+                                <label for="barang_keluar" class="form-label"><small>Nama Barang</small></label>
+                                <select name="barang_keluar" id="barang_keluar" class="form-control">
                                     <?php
-                                        $getdata = mysqli_query($connect, "SELECT * FROM barang");
-                                        while($data = mysqli_fetch_array($getdata) ){
-                                            $id = $data['id'];
-                                            $nama_barang = $data['nama_barang'];
+                                        $data_barang = mysqli_query($connect, "SELECT * FROM barang");
+                                        while($datab = mysqli_fetch_array($data_barang) ){
+                                            $id = $datab['id'];
+                                            $nama_barang = $datab['nama_barang'];
                                     ?>
                                     
                                     <option value="<?= $id; ?>"> <?= $nama_barang; ?> </option>
@@ -135,17 +151,39 @@
                                     ?>
                                 </select>
                             </div>
+                            <!-- Input jumlah barang keluar -->
                             <div class="col">
-                                <input type="number" name="qty" placeholder="Jumlah Quantity" class="form-control" required>
+                                <label for="qty" class="form-label"><small>Jumlah Barang</small></label>
+                                <input type="number" name="qty" id="qty" placeholder="Jumlah Quantity" class="form-control" required>
+                            </div>
+                        </div>
+                        <!-- Select data supplier -->
+                        <div class="row pt-3">
+                            <div class="col">
+                                <label for="supplier_keluar" class="form-label"><small>Nama Supplier</small></label>
+                                <select name="supplier_keluar" id="supplier_keluar" class="form-control">
+                                    <?php
+                                        $data_supplier = mysqli_query($connect, "SELECT * FROM supplier");
+                                        while($datas = mysqli_fetch_array($data_supplier) ){
+                                            $id = $datas['id'];
+                                            $nama_supplier = $datas['nama_supplier'];
+                                    ?>
+                                    
+                                    <option value="<?= $id; ?>"> <?= $nama_supplier; ?> </option>
+
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="row pt-3">
                             <div class="col">
-                                <input type="text" name="keterangan" placeholder="Keterangan" class="form-control" required>
+                                <label for="keterangan_keluar" class="form-label"><small>Keterangan</small></label>
+                                <input type="text" name="keterangan_keluar" id="keterangan_keluar" placeholder="Keterangan" class="form-control">
                             </div>
                         </div>
                     </div>
-
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" name="save_keluar">Simpan</button>

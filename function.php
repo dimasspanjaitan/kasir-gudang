@@ -22,8 +22,10 @@
     // Menambah barang masuk
     if(isset($_POST['save_masuk'])){
         $barang_masuk = $_POST['barang_masuk'];
+        $supplier_masuk = $_POST['supplier_masuk'];
+        $user_masuk = $_POST['user_masuk'];
         $qty = $_POST['qty'];
-        $penerima = $_POST['penerima'];
+        $keterangan_masuk = $_POST['keterangan_masuk'];
 
         $cek_stok = mysqli_query($connect, "SELECT * FROM barang where id='$barang_masuk'"); // ambil data dari tabel barang berdasarkan id barang masuk
         $getdata = mysqli_fetch_array($cek_stok); // ubah ke array
@@ -31,7 +33,7 @@
         $current_stok = $getdata['stok']; // ambil data stok sekarang
         $final_stok = $current_stok + $qty; // stok sekarang ditambah qty barang masuk
 
-        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, qty, penerima) VALUES('$barang_masuk', '$qty', '$penerima')"); // menyimpan data barang masuk
+        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')"); // menyimpan data barang masuk
         $update_stok_masuk = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_masuk'"); // update data stok di tabel barang
 
         if ($tambah_barang_masuk && $update_stok_masuk) {
@@ -45,8 +47,9 @@
     // Menambah barang keluar
     if(isset($_POST['save_keluar'])){
         $barang_keluar = $_POST['barang_keluar'];
+        $supplier_keluar = $_POST['supplier_keluar'];
         $qty = $_POST['qty'];
-        $keterangan = $_POST['keterangan'];
+        $keterangan_keluar = $_POST['keterangan_keluar'];
 
         $cek_stok = mysqli_query($connect, "SELECT * FROM barang where id='$barang_keluar'"); // ambil data dari tabel barang berdasarkan id barang keluar
         $getdata = mysqli_fetch_array($cek_stok); // ubah ke array
@@ -54,7 +57,7 @@
         $current_stok = $getdata['stok']; // ambil data stok sekarang
         $final_stok = $current_stok - $qty; // stok sekarang dikurang qty barang keluar
 
-        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, qty, keterangan) VALUES('$barang_keluar', '$qty', '$keterangan')"); // menyimpan data barang keluar
+        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, id_supplier, qty, keterangan_keluar) VALUES('$barang_keluar', '$supplier_keluar', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
         $update_stok_keluar = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_keluar'"); // update data stok di tabel barang
 
         if ($tambah_barang_keluar && $update_stok_keluar) {
@@ -62,6 +65,22 @@
         }else{
             echo 'gagal';
             header('location:keluar.php');
+        }
+    }
+
+    // Menambah supplier baru
+    if(isset($_POST['save_supplier'])){
+        $nama_supplier = $_POST['nama_supplier'];
+        $alamat = $_POST['alamat'];
+        $telp = $_POST['telp'];
+        $keterangan_supplier = $_POST['keterangan_supplier'];
+
+        $tambah_supplier = mysqli_query($connect, "INSERT INTO supplier (nama_supplier, alamat, telp, keterangan_supplier) VALUES('$nama_supplier','$alamat', '$telp','$keterangan_supplier')");
+        if ($tambah_supplier) {
+            header('location:supplier.php');
+        }else{
+            echo 'gagal';
+            header('location:supplier.php');
         }
     }
 ?>

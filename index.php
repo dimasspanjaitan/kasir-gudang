@@ -19,7 +19,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">KASIR GUDANG</a>
+            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -40,7 +40,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
                             </a>
-                            
+                            <a class="nav-link" href="supplier.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                Supplier
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -65,19 +68,32 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>ID</th>
                                             <th>Nama Barang</th>
-                                            <th>Stok</th>
                                             <th>Deskripsi</th>
+                                            <th>Stok</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                        </tr>
+
+                                        <?php
+                                            $getdata_barang = mysqli_query($connect, "SELECT * FROM barang");
+                                            foreach($getdata_barang as $data){
+                                                $id = $data['id'];
+                                                $nama_barang = $data['nama_barang'];
+                                                $stok = $data['stok'];
+                                                $deskripsi = $data['deskripsi'];
+                                        ?>
+                                            <tr>
+                                                <td width="5px"><?= $id ?></td>
+                                                <td><?= $nama_barang ?></td>
+                                                <td><?= $deskripsi ?></td>
+                                                <td><?= $stok ?></td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -87,12 +103,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            <div class="text-muted">Copyright &copy; Saya Sendiri 2022</div>
                         </div>
                     </div>
                 </footer>
