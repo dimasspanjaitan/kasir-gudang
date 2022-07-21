@@ -2,7 +2,7 @@
     session_start();
 
     // Membuat koneksi ke database
-    $connect = mysqli_connect("localhost", "root", "", "kasir-gudang");
+    $connect = mysqli_connect("localhost", "root", "", "kasir-gudang"); // ("alamat database", "username database", "password database", "nama database")
 
     // Menambah barang baru
     if(isset($_POST['save_barang'])){
@@ -11,6 +11,7 @@
         $deskripsi = $_POST['deskripsi'];
 
         $tambah_barang = mysqli_query($connect, "INSERT INTO barang (nama_barang, stok, deskripsi) VALUES('$nama_barang','$stok','$deskripsi')");
+
         if ($tambah_barang) {
             header('location:index.php');
         }else{
@@ -20,6 +21,7 @@
     }
 
     // Menambah barang masuk
+    // ketika ada perubahan di tombol save_masuk
     if(isset($_POST['save_masuk'])){
         $barang_masuk = $_POST['barang_masuk'];
         $supplier_masuk = $_POST['supplier_masuk'];
@@ -27,14 +29,16 @@
         $qty = $_POST['qty'];
         $keterangan_masuk = $_POST['keterangan_masuk'];
 
-        $cek_stok = mysqli_query($connect, "SELECT * FROM barang where id='$barang_masuk'"); // ambil data dari tabel barang berdasarkan id barang masuk
+        $cek_stok = mysqli_query($connect, "SELECT * FROM barang WHERE id='$barang_masuk'"); // ambil data dari tabel barang dimana id barang sama dengan id barang masuk dari modal
         $getdata = mysqli_fetch_array($cek_stok); // ubah ke array
 
         $current_stok = $getdata['stok']; // ambil data stok sekarang
-        $final_stok = $current_stok + $qty; // stok sekarang ditambah qty barang masuk
+        $final_stok = $current_stok + $qty; // stok sekarang ditambah qty barang masuk yang diunput di modal
 
-        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')"); // menyimpan data barang masuk
-        $update_stok_masuk = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_masuk'"); // update data stok di tabel barang
+        // Ini menyimpan data ke table data barang masuk
+        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')");
+        // meng-update data yang ada di stok
+        $update_stok_masuk = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_masuk'");
 
         if ($tambah_barang_masuk && $update_stok_masuk) {
             header('location:masuk.php');
@@ -76,6 +80,7 @@
         $keterangan_supplier = $_POST['keterangan_supplier'];
 
         $tambah_supplier = mysqli_query($connect, "INSERT INTO supplier (nama_supplier, alamat, telp, keterangan_supplier) VALUES('$nama_supplier','$alamat', '$telp','$keterangan_supplier')");
+        
         if ($tambah_supplier) {
             header('location:supplier.php');
         }else{

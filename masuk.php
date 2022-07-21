@@ -17,13 +17,17 @@
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+        <!-- TOPBAR HEADER -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
+
+        <!-- KONTEN -->
         <div id="layoutSidenav">
+            <!-- SIDEBAR -->
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -53,10 +57,13 @@
                     </div>
                 </nav>
             </div>
+
+            <!-- ISI KONTEN -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Barang Masuk</h1>
+                        <!-- JUDUL -->
+                        <h1 class="mt-4">Barang Masuk</h1> 
                         <div class="card mb-4">
                             <div class="card-header">
                                 <!-- Button to Open the Modal -->
@@ -110,6 +117,8 @@
                         </div>
                     </div>
                 </main>
+
+                <!-- FOOTER -->
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -142,6 +151,7 @@
                         <!-- Select data barang -->
                         <div class="row">
                             <div class="col">
+                                <!-- NAMA BARANG -->
                                 <label for="barang_masuk" class="form-label"><small>Nama Barang</small></label>
                                 <select name="barang_masuk" id="barang_masuk" class="form-control">
                                     <?php
@@ -150,7 +160,8 @@
                                             $id = $datab['id'];
                                             $nama_barang = $datab['nama_barang'];
                                     ?>
-                                    
+                                    <!-- value untuk menyimpan nilai select berupa id barang -->
+                                    <!-- yang ditampilkan adalah nama barang -->
                                     <option value="<?= $id; ?>"> <?= $nama_barang; ?> </option>
 
                                     <?php

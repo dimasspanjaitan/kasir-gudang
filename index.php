@@ -11,19 +11,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Stok Barang - Kasir Gudang</title>
-        <link href="css/datatables-style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
+        <title>Stok Barang - Kasir Gudang</title> 
+        <link href="css/datatables-style.css" rel="stylesheet" /> <!-- memanggil resource tampilan table -->
+        <link href="css/styles.css" rel="stylesheet" /> <!-- memanggil resource tampilan keseluruhan -->
+        <script src="js/font-awesome.min.js" crossorigin="anonymous"></script> <!-- memanggil resource untuk font dan icon -->
     </head>
     <body class="sb-nav-fixed">
+        <!-- Header kasir -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
+            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a> <!-- menampilkan logo atau nama gudang -->
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button> <!-- untuk menyembunyikan dan menampilkan sidebar -->
         </nav>
+
+        <!-- Menampilkan SIDEBAR & isi KONTEN -->
         <div id="layoutSidenav">
+            <!-- SIDEBAR -->
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -53,6 +57,8 @@
                     </div>
                 </nav>
             </div>
+
+            <!-- KONTEN -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -64,6 +70,7 @@
                                     Tambah
                                 </button>
                             </div>
+                            <!-- TABEL -->
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -100,6 +107,8 @@
                         </div>
                     </div>
                 </main>
+
+                <!-- FOOTER -->
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -116,7 +125,7 @@
     </body>
 
    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="myModal"> <!-- id modal yang akan dipanggil di tombol tambah -->
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -130,14 +139,17 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="row">
+                            <!-- Nama barang -->
                             <div class="col">
                                 <input type="text" name="nama_barang" placeholder="Nama Barang" class="form-control" required>
                             </div>
+                            <!-- jumlah qty -->
                             <div class="col">
                                 <input type="number" name="stok" placeholder="Jumlah Stok" class="form-control" required>
                             </div>
                         </div>
                         <div class="row pt-3">
+                            <!-- deskripsi -->
                             <div class="col">
                                 <input type="text" name="deskripsi" placeholder="Deskripsi" class="form-control" required>
                             </div>
