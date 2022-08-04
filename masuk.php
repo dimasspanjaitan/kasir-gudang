@@ -48,6 +48,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
                                 Supplier
                             </a>
+                            <a class="nav-link" href="laporan.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
+                                Laporan
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -89,11 +93,11 @@
                                         <?php
                                             $getdata_masuk = mysqli_query($connect, "SELECT * FROM masuk INNER JOIN barang ON barang.id = masuk.id_barang INNER JOIN supplier ON supplier.id = masuk.id_supplier INNER JOIN users ON users.id = masuk.id_user");
                                             foreach($getdata_masuk as $data){
-                                                $tanggal = $data['tanggal'];
+                                                $tanggal = $data['tanggal_masuk'];
                                                 $nama_barang = $data['nama_barang'];
                                                 $supplier = $data['nama_supplier'];
                                                 $user = $data['nama_user'];
-                                                $jumlah = $data['qty'];
+                                                $jumlah = $data['qty_masuk'];
                                                 $keterangan = $data['keterangan_masuk'];
                                         ?>
                                             <tr>
@@ -122,7 +126,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Saya Sendiri 2022</div>
+                            <div class="text-muted">Copyright &copy; Christin Lubis 2022</div>
                         </div>
                     </div>
                 </footer>

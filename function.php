@@ -7,10 +7,10 @@
     // Menambah barang baru
     if(isset($_POST['save_barang'])){
         $nama_barang = $_POST['nama_barang'];
-        $stok = $_POST['stok'];
+        // $stok = $_POST['stok'];
         $deskripsi = $_POST['deskripsi'];
 
-        $tambah_barang = mysqli_query($connect, "INSERT INTO barang (nama_barang, stok, deskripsi) VALUES('$nama_barang','$stok','$deskripsi')");
+        $tambah_barang = mysqli_query($connect, "INSERT INTO barang (nama_barang, deskripsi) VALUES('$nama_barang', '$deskripsi')");
 
         if ($tambah_barang) {
             header('location:index.php');
@@ -36,11 +36,12 @@
         $final_stok = $current_stok + $qty; // stok sekarang ditambah qty barang masuk yang diunput di modal
 
         // Ini menyimpan data ke table data barang masuk
-        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')");
+        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty_masuk, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')");
+        $transaksi_masuk = mysqli_query($connect, "INSERT INTO trx_log (id_barang, tipe, qty, current_stok) VALUES('$barang_masuk', 1, '$qty', '$final_stok')");
         // meng-update data yang ada di stok
         $update_stok_masuk = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_masuk'");
 
-        if ($tambah_barang_masuk && $update_stok_masuk) {
+        if ($tambah_barang_masuk && $transaksi_masuk && $update_stok_masuk) {
             header('location:masuk.php');
         }else{
             echo 'gagal';
@@ -61,10 +62,11 @@
         $current_stok = $getdata['stok']; // ambil data stok sekarang
         $final_stok = $current_stok - $qty; // stok sekarang dikurang qty barang keluar
 
-        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, id_supplier, qty, keterangan_keluar) VALUES('$barang_keluar', '$supplier_keluar', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
+        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, id_supplier, qty_keluar, keterangan_keluar) VALUES('$barang_keluar', '$supplier_keluar', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
+        $transaksi_keluar = mysqli_query($connect, "INSERT INTO trx_log (id_barang, tipe, qty, current_stok) VALUES('$barang_keluar', 2, '$qty', '$final_stok')");
         $update_stok_keluar = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_keluar'"); // update data stok di tabel barang
 
-        if ($tambah_barang_keluar && $update_stok_keluar) {
+        if ($tambah_barang_keluar && $transaksi_keluar && $update_stok_keluar) {
             header('location:keluar.php');
         }else{
             echo 'gagal';

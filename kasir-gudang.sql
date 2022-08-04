@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2022 at 09:07 AM
+-- Generation Time: Aug 04, 2022 at 01:26 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,18 +31,8 @@ CREATE TABLE `barang` (
   `id` int(11) NOT NULL,
   `nama_barang` varchar(25) NOT NULL,
   `deskripsi` varchar(50) NOT NULL,
-  `stok` int(11) NOT NULL
+  `stok` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`id`, `nama_barang`, `deskripsi`, `stok`) VALUES
-(1, 'Samsung', 'handphone', 16),
-(2, 'iPhone 13', 'handphone', 112),
-(3, 'OontZ', 'Speaker Bluetooth', 199),
-(5, 'DBE', 'Headphone', 405);
 
 -- --------------------------------------------------------
 
@@ -54,21 +44,10 @@ CREATE TABLE `keluar` (
   `id` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `id_supplier` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `qty_keluar` int(11) NOT NULL,
+  `tanggal_keluar` timestamp NOT NULL DEFAULT current_timestamp(),
   `keterangan_keluar` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `keluar`
---
-
-INSERT INTO `keluar` (`id`, `id_barang`, `id_supplier`, `qty`, `tanggal`, `keterangan_keluar`) VALUES
-(1, 2, 2, 3, '2022-07-18 12:11:50', 'wkwkwk'),
-(2, 2, 2, 2, '2022-07-18 12:12:14', 'LUNAS'),
-(3, 3, 2, 30, '2022-07-20 16:17:35', 'Distributor Medan'),
-(4, 3, 2, 50, '2022-07-21 05:53:17', 'Distributor Medan'),
-(5, 3, 3, 1, '2022-07-21 05:53:30', '');
 
 -- --------------------------------------------------------
 
@@ -81,23 +60,10 @@ CREATE TABLE `masuk` (
   `id_barang` int(11) NOT NULL,
   `id_supplier` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `qty_masuk` int(11) NOT NULL,
+  `tanggal_masuk` timestamp NOT NULL DEFAULT current_timestamp(),
   `keterangan_masuk` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `masuk`
---
-
-INSERT INTO `masuk` (`id`, `id_barang`, `id_supplier`, `id_user`, `qty`, `tanggal`, `keterangan_masuk`) VALUES
-(1, 2, 1, 1, 100, '2022-07-18 11:56:51', 'sudah masuk'),
-(3, 1, 2, 1, 2, '2022-07-18 11:58:47', 'barang sudah diterima'),
-(4, 1, 1, 1, 4, '2022-07-19 05:53:12', ''),
-(5, 2, 1, 1, 12, '2022-07-19 06:01:59', ''),
-(6, 3, 1, 1, 25, '2022-07-20 16:07:15', ''),
-(7, 5, 6, 1, 250, '2022-07-21 05:49:31', ''),
-(8, 5, 4, 1, 5, '2022-07-21 05:52:00', '');
 
 -- --------------------------------------------------------
 
@@ -110,21 +76,23 @@ CREATE TABLE `supplier` (
   `nama_supplier` varchar(25) NOT NULL,
   `alamat` varchar(100) NOT NULL,
   `telp` varchar(15) NOT NULL,
-  `keterangan_supplier` varchar(50) NOT NULL
+  `keterangan_supplier` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `supplier`
+-- Table structure for table `trx_log`
 --
 
-INSERT INTO `supplier` (`id`, `nama_supplier`, `alamat`, `telp`, `keterangan_supplier`) VALUES
-(1, 'Ahmad', 'Jl. selamat No.41', '081233334444', 'test'),
-(2, 'Siti', 'Jl. Sejahtera No. 23', '081311112222', 'test 2'),
-(3, 'Rudi', 'Jalan Pembangunan Iman No. 02, Jakarta Pusat', '081119910909', ''),
-(4, 'Jack', 'Jl. Sudirman No. 31 Durian, Kec. Labok Dalam, Jakarta', '081213131414', ''),
-(5, 'Joni', 'Jl. Parmituan, Karimun', '088877776666', ''),
-(6, 'Budi', 'Perumahan Indah Permai, No 36 C Blok F', '082233331111', 'Newbie'),
-(7, 'Fahmi', 'Jl. Sudirman', '0800000000000', 'Reseller');
+CREATE TABLE `trx_log` (
+  `id` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `tipe` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `current_stok` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -180,6 +148,13 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `trx_log`
+--
+ALTER TABLE `trx_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_barang` (`id_barang`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -193,25 +168,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `trx_log`
+--
+ALTER TABLE `trx_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -237,6 +218,12 @@ ALTER TABLE `masuk`
   ADD CONSTRAINT `masuk_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id`),
   ADD CONSTRAINT `masuk_ibfk_2` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`),
   ADD CONSTRAINT `masuk_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `trx_log`
+--
+ALTER TABLE `trx_log`
+  ADD CONSTRAINT `trx_log_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

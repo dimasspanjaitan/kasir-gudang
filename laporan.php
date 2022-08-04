@@ -11,21 +11,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Stok Barang - Kasir Gudang</title> 
-        <link href="css/datatables-style.css" rel="stylesheet" /> <!-- memanggil resource tampilan table -->
-        <link href="css/styles.css" rel="stylesheet" /> <!-- memanggil resource tampilan keseluruhan -->
-        <script src="js/font-awesome.min.js" crossorigin="anonymous"></script> <!-- memanggil resource untuk font dan icon -->
+        <title>Laporan - Kasir Gudang</title>
+        <link href="css/datatables-style.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-        <!-- Header kasir -->
+        <!-- TOPBAR HEADER -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a> <!-- menampilkan logo atau nama gudang -->
+            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button> <!-- untuk menyembunyikan dan menampilkan sidebar -->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
 
-        <!-- Menampilkan SIDEBAR & isi KONTEN -->
+        <!-- KONTEN -->
         <div id="layoutSidenav">
             <!-- SIDEBAR -->
             <div id="layoutSidenav_nav">
@@ -62,49 +62,49 @@
                 </nav>
             </div>
 
-            <!-- KONTEN -->
+            <!-- ISI KONTEN -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Stok Barang</h1>
+                        <!-- JUDUL -->
+                        <h1 class="mt-4">Laporan</h1> 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <!-- Button to Open the Modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                                    Tambah
-                                </button>
-                            </div>
-                            <!-- TABEL -->
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>Tanggal</th>
                                             <th>Nama Barang</th>
-                                            <th>Deskripsi</th>
-                                            <th>Stok</th>
+                                            <th>Stok Awal</th>
+                                            <th>Tipe</th>
+                                            <th>Jumlah</th>
+                                            <th>Stok Akhir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        
                                         <?php
-                                            $getdata_barang = mysqli_query($connect, "SELECT * FROM barang");
-                                            foreach($getdata_barang as $data){
-                                                $id = $data['id'];
+                                            $getdata_laporan = mysqli_query($connect, "SELECT * FROM trx_log LEFT JOIN barang ON barang.id = trx_log.id_barang ORDER BY trx_log.tanggal DESC");
+                                            foreach($getdata_laporan as $data){
+                                                $tanggal = $data['tanggal'];
                                                 $nama_barang = $data['nama_barang'];
-                                                $stok = $data['stok'];
-                                                $deskripsi = $data['deskripsi'];
+                                                $stok_awal = $data['current_stok'] - $data['qty'];
+                                                $tipe = $data['tipe'] == 1 ? "Masuk" : "Keluar";
+                                                $jumlah = $data['qty'];
+                                                $stok_akhir = $data['current_stok'];
                                         ?>
                                             <tr>
-                                                <td width="5px"><?= $id ?></td>
+                                                <td><?= $tanggal ?></td>
                                                 <td><?= $nama_barang ?></td>
-                                                <td><?= $deskripsi ?></td>
-                                                <td><?= $stok ?></td>
+                                                <td><?= $stok_awal ?></td>
+                                                <td><?= $tipe ?></td>
+                                                <td><?= $jumlah ?></td>
+                                                <td><?= $stok_akhir ?></td>
                                             </tr>
                                         <?php
                                             }
                                         ?>
-
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -127,46 +127,4 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
-
-   <!-- The Modal -->
-    <div class="modal fade" id="myModal"> <!-- id modal yang akan dipanggil di tombol tambah -->
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <form method="POST">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Tambah Barang</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="row">
-                            <!-- Nama barang -->
-                            <div class="col">
-                                <input type="text" name="nama_barang" placeholder="Nama Barang" class="form-control" required>
-                            </div>
-                            <!-- jumlah qty -->
-                            <!-- <div class="col">
-                                <input type="number" name="stok" placeholder="Jumlah Stok" class="form-control" required>
-                            </div> -->
-                        </div>
-                        <div class="row pt-3">
-                            <!-- deskripsi -->
-                            <div class="col">
-                                <input type="text" name="deskripsi" placeholder="Deskripsi" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save_barang">Simpan</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
 </html>
