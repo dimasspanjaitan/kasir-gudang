@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Supplier - Kasir Gudang</title>
+        <title>Mandor - Kasir Gudang</title>
         <link href="css/datatables-style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
@@ -42,11 +42,11 @@
                                         <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                         Stok Barang
                                     </a>
-                                    <a class="nav-link active" href="supplier.php">
+                                    <a class="nav-link" href="supplier.php">
                                         <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
                                         Supplier
                                     </a>
-                                    <a class="nav-link" href="mandor.php">
+                                    <a class="nav-link active" href="mandor.php">
                                         <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
                                         Mandor
                                     </a>
@@ -79,7 +79,7 @@
                 <main>
                     <div class="container-fluid px-4">
 						<!-- JUDUL -->
-                        <h1 class="mt-4">Data Supplier</h1>
+                        <h1 class="mt-4">Data Mandor</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <!-- Button to Open the Modal -->
@@ -93,26 +93,20 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Telepon</th>
                                             <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $getdata_supplier = mysqli_query($connect, "SELECT * FROM supplier");
-                                            foreach($getdata_supplier as $datas){
-                                                $id = $datas['id'];
-                                                $nama_supplier = $datas['nama_supplier'];
-                                                $alamat = $datas['alamat'];
-                                                $telp = $datas['telp'];
-                                                $keterangan = $datas['keterangan_supplier'];
+                                            $getdata_mandor = mysqli_query($connect, "SELECT * FROM mandor");
+                                            foreach($getdata_mandor as $datam){
+                                                $id = $datam['id'];
+                                                $nama_mandor = $datam['nama_mandor'];
+                                                $keterangan = $datam['keterangan_mandor'];
                                         ?>
                                             <tr>
                                                 <td width="5px"><?= $id ?></td>
-                                                <td><?= $nama_supplier ?></td>
-                                                <td><?= $alamat ?></td>
-                                                <td><?= $telp ?></td>
+                                                <td><?= $nama_mandor ?></td>
                                                 <td><?= $keterangan ?></td>
                                             </tr>
                                         <?php
@@ -149,7 +143,7 @@
                 <form method="POST">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Tambah Supplier</h4>
+                        <h4 class="modal-title">Tambah Mandor</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -157,29 +151,19 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col">
-                                <input type="text" name="nama_supplier" placeholder="Nama" class="form-control" required>
+                                <input type="text" name="nama_mandor" placeholder="Nama" class="form-control" required>
                             </div>
                         </div>
                         <div class="row pt-3">
                             <div class="col">
-                                <input type="text" name="alamat" placeholder="Alamat" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col">
-                                <input type="text" name="telp" placeholder="Nomor Telp: 08xx-xxxx-xxxx" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col">
-                                <input type="text" name="keterangan_supplier" placeholder="Keterangan" class="form-control" required>
+                                <input type="text" name="keterangan_mandor" placeholder="Keterangan" class="form-control" required>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save_supplier">Simpan</button>
+                        <button type="submit" class="btn btn-success" name="save_mandor">Simpan</button>
                     </div>
                 </form>
 

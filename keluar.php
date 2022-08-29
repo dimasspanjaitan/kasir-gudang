@@ -17,32 +17,48 @@
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+		<!-- TOPBAR HEADER -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
+		
+		<!-- KONTEN -->
         <div id="layoutSidenav">
+			<!-- SIDEBAR -->
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Stok Barang
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Data Master
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="index.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                        Stok Barang
+                                    </a>
+                                    <a class="nav-link" href="supplier.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Supplier
+                                    </a>
+                                    <a class="nav-link" href="mandor.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Mandor
+                                    </a>
+                                </nav>
+                            </div>
                             <a class="nav-link" href="masuk.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-down"></i></div>
                                 Barang Masuk
                             </a>
-                            <a class="nav-link" href="keluar.php">
+                            <a class="nav-link active" href="keluar.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
-                            </a>
-                            <a class="nav-link" href="supplier.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
-                                Supplier
                             </a>
                             <a class="nav-link" href="laporan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
@@ -57,9 +73,12 @@
                     </div>
                 </nav>
             </div>
+			
+			<!-- KONTEN -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
+						<!-- JUDUL -->
                         <h1 class="mt-4">Barang Keluar</h1>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -74,7 +93,8 @@
                                         <tr>
                                             <th>Tanggal</th>
                                             <th>Nama Barang</th>
-                                            <th>Supplier</th>
+                                            <th>Mandor</th>
+                                            <th>User</th>
                                             <th>Jumlah</th>
                                             <th>Keterangan</th>
                                         </tr>
@@ -82,18 +102,20 @@
                                     <tbody>
                                         
                                         <?php
-                                            $getdata_keluar = mysqli_query($connect, "SELECT * FROM keluar INNER JOIN barang ON barang.id = keluar.id_barang INNER JOIN supplier ON supplier.id = keluar.id_supplier");
+                                            $getdata_keluar = mysqli_query($connect, "SELECT * FROM keluar LEFT JOIN barang ON barang.id = keluar.id_barang LEFT JOIN mandor ON mandor.id = keluar.id_mandor LEFT JOIN users ON users.id = keluar.id_user");
                                             foreach($getdata_keluar as $data){
                                                 $tanggal = $data['tanggal_keluar'];
                                                 $nama_barang = $data['nama_barang'];
-                                                $supplier = $data['nama_supplier'];
+                                                $mandor = $data['nama_mandor'];
+                                                $user = $data['nama_user'];
                                                 $jumlah = $data['qty_keluar'];
                                                 $keterangan = $data['keterangan_keluar'];
                                         ?>
                                             <tr>
                                                 <td><?= $tanggal ?></td>
                                                 <td><?= $nama_barang ?></td>
-                                                <td><?= $supplier ?></td>
+                                                <td><?= $mandor ?></td>
+                                                <td><?= $user ?></td>
                                                 <td><?= $jumlah ?></td>
                                                 <td><?= $keterangan ?></td>
                                             </tr>
@@ -107,6 +129,8 @@
                         </div>
                     </div>
                 </main>
+				
+				<!-- FOOTER -->
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -161,19 +185,39 @@
                                 <input type="number" name="qty" id="qty" placeholder="Jumlah Quantity" class="form-control" required>
                             </div>
                         </div>
-                        <!-- Select data supplier -->
+                        <!-- Select data mandor -->
                         <div class="row pt-3">
                             <div class="col">
-                                <label for="supplier_keluar" class="form-label"><small>Nama Supplier</small></label>
-                                <select name="supplier_keluar" id="supplier_keluar" class="form-control">
+                                <label for="mandor_keluar" class="form-label"><small>Nama Mandor</small></label>
+                                <select name="mandor_keluar" id="mandor_keluar" class="form-control">
                                     <?php
-                                        $data_supplier = mysqli_query($connect, "SELECT * FROM supplier");
-                                        while($datas = mysqli_fetch_array($data_supplier) ){
+                                        $data_mandor = mysqli_query($connect, "SELECT * FROM mandor");
+                                        while($datas = mysqli_fetch_array($data_mandor) ){
                                             $id = $datas['id'];
-                                            $nama_supplier = $datas['nama_supplier'];
+                                            $nama_mandor = $datas['nama_mandor'];
                                     ?>
                                     
-                                    <option value="<?= $id; ?>"> <?= $nama_supplier; ?> </option>
+                                    <option value="<?= $id; ?>"> <?= $nama_mandor; ?> </option>
+
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Select data user pemberi barang -->
+                        <div class="row pt-3">
+                            <div class="col">
+                                <label for="user_keluar" class="form-label"><small>Pemberi/User</small></label>
+                                <select name="user_keluar" id="user_keluar" class="form-control">
+                                    <?php
+                                        $data_users = mysqli_query($connect, "SELECT * FROM users");
+                                        while($datau = mysqli_fetch_array($data_users) ){
+                                            $id = $datau['id'];
+                                            $nama_user = $datau['nama_user'];
+                                    ?>
+                                    
+                                    <option value="<?= $id; ?>"> <?= $nama_user; ?> </option>
 
                                     <?php
                                         }

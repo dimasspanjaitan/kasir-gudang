@@ -46,6 +46,8 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
+										
+										<!-- FORM LOGIN -->
                                         <form method="POST">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
@@ -59,6 +61,7 @@
                                                 <button class="btn btn-primary" name="login">Login</button>
                                             </div>
                                         </form>
+										
                                     </div>
                                 </div>
                             </div>

@@ -32,10 +32,27 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Stok Barang
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Data Master
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link active" href="index.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                        Stok Barang
+                                    </a>
+                                    <a class="nav-link" href="supplier.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Supplier
+                                    </a>
+                                    <a class="nav-link" href="mandor.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Mandor
+                                    </a>
+                                </nav>
+                            </div>
+                            
                             <a class="nav-link" href="masuk.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-down"></i></div>
                                 Barang Masuk
@@ -44,10 +61,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
                             </a>
-                            <a class="nav-link" href="supplier.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
-                                Supplier
-                            </a>
+                            
                             <a class="nav-link" href="laporan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
                                 Laporan
