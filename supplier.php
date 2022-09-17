@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Supplier - Kasir Gudang</title>
+        <title>Supplier - Gudang</title>
         <link href="css/datatables-style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
 		<!-- TOPBAR HEADER -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
+            <a class="navbar-brand ps-3" href="index.php">GUDANG</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -172,7 +172,7 @@
                         </div>
                         <div class="row pt-3">
                             <div class="col">
-                                <input type="text" name="keterangan_supplier" placeholder="Keterangan" class="form-control" required>
+                                <input type="text" name="keterangan_supplier" placeholder="Keterangan" class="form-control">
                             </div>
                         </div>
                     </div>

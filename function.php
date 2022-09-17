@@ -94,10 +94,11 @@
 
     // Menambah mandor baru
     if(isset($_POST['save_mandor'])){
-        $nama_mandor = $_POST['nama_mandor'];
+        $nama_mandor = $_POST['nama_mandor'];       
+        $phone_mandor = $_POST['phone_mandor'];       
         $keterangan_mandor = $_POST['keterangan_mandor'];
 
-        $tambah_mandor = mysqli_query($connect, "INSERT INTO mandor (nama_mandor, keterangan_mandor) VALUES('$nama_mandor','$keterangan_mandor')");
+        $tambah_mandor = mysqli_query($connect, "INSERT INTO mandor (nama_mandor, phone_mandor, keterangan_mandor) VALUES('$nama_mandor', '$phone_mandor','$keterangan_mandor')");
         
         if ($tambah_mandor) {
             header('location:mandor.php');

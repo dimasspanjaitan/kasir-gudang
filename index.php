@@ -11,16 +11,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Stok Barang - Kasir Gudang</title> 
+        <title>Stok Barang - Gudang</title> 
         <link href="css/datatables-style.css" rel="stylesheet" /> <!-- memanggil resource tampilan table -->
         <link href="css/styles.css" rel="stylesheet" /> <!-- memanggil resource tampilan keseluruhan -->
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script> <!-- memanggil resource untuk font dan icon -->
     </head>
     <body class="sb-nav-fixed">
-        <!-- Header kasir -->
+        <!-- Header -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a> <!-- menampilkan logo atau nama gudang -->
+            <a class="navbar-brand ps-3" href="index.php">GUDANG</a> <!-- menampilkan logo atau nama gudang -->
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button> <!-- untuk menyembunyikan dan menampilkan sidebar -->
         </nav>
