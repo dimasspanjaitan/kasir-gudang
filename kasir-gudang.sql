@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2022 at 12:29 PM
+-- Generation Time: Sep 17, 2022 at 07:36 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -34,13 +34,6 @@ CREATE TABLE `barang` (
   `stok` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`id`, `nama_barang`, `deskripsi`, `stok`) VALUES
-(10, 'Kuningan', 'Logam', 4550);
-
 -- --------------------------------------------------------
 
 --
@@ -57,14 +50,6 @@ CREATE TABLE `keluar` (
   `keterangan_keluar` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `keluar`
---
-
-INSERT INTO `keluar` (`id`, `id_barang`, `id_mandor`, `id_user`, `qty_keluar`, `tanggal_keluar`, `keterangan_keluar`) VALUES
-(1, 10, 1, 1, 250, '2022-08-14 14:52:41', ''),
-(2, 10, 1, 1, 1200, '2022-08-29 08:12:49', '');
-
 -- --------------------------------------------------------
 
 --
@@ -74,15 +59,9 @@ INSERT INTO `keluar` (`id`, `id_barang`, `id_mandor`, `id_user`, `qty_keluar`, `
 CREATE TABLE `mandor` (
   `id` int(11) NOT NULL,
   `nama_mandor` varchar(25) NOT NULL,
+  `phone_mandor` varchar(20) NOT NULL,
   `keterangan_mandor` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `mandor`
---
-
-INSERT INTO `mandor` (`id`, `nama_mandor`, `keterangan_mandor`) VALUES
-(1, 'Agus', 'Divisi Produksi');
 
 -- --------------------------------------------------------
 
@@ -100,14 +79,6 @@ CREATE TABLE `masuk` (
   `keterangan_masuk` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `masuk`
---
-
-INSERT INTO `masuk` (`id`, `id_barang`, `id_supplier`, `id_user`, `qty_masuk`, `tanggal_masuk`, `keterangan_masuk`) VALUES
-(1, 10, 10, 1, 1000, '2022-08-14 14:50:34', ''),
-(2, 10, 10, 1, 5000, '2022-08-29 08:12:37', '');
-
 -- --------------------------------------------------------
 
 --
@@ -121,13 +92,6 @@ CREATE TABLE `supplier` (
   `telp` varchar(15) NOT NULL,
   `keterangan_supplier` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`id`, `nama_supplier`, `alamat`, `telp`, `keterangan_supplier`) VALUES
-(10, 'Samuel', 'Jl. Pembangunan Iman No. 02, Jakarta Pusat', '081327318899', 'Mitra');
 
 -- --------------------------------------------------------
 
@@ -143,16 +107,6 @@ CREATE TABLE `trx_log` (
   `current_stok` int(11) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trx_log`
---
-
-INSERT INTO `trx_log` (`id`, `id_barang`, `tipe`, `qty`, `current_stok`, `tanggal`) VALUES
-(1, 10, 1, 1000, 1000, '2022-08-14 14:50:34'),
-(2, 10, 2, 250, 750, '2022-08-14 14:52:41'),
-(3, 10, 1, 5000, 5750, '2022-08-29 08:12:37'),
-(4, 10, 2, 1200, 4550, '2022-08-29 08:12:49');
 
 -- --------------------------------------------------------
 
@@ -236,37 +190,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mandor`
 --
 ALTER TABLE `mandor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trx_log`
 --
 ALTER TABLE `trx_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
