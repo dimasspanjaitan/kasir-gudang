@@ -12,8 +12,10 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Laporan - Gudang</title>
-        <link href="css/datatables-style.css" rel="stylesheet" />
+        <!-- <link href="css/datatables-style.css" rel="stylesheet" /> -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap5.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/buttons.bootstrap5.min.css"/>
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -82,7 +84,7 @@
                         <h1 class="mt-4">Laporan</h1> 
                         <div class="card mb-4">
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>Tanggal</th>
@@ -134,9 +136,24 @@
                 </footer>
             </div>
         </div>
+
         <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+
+        <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/datatables.min.js"></script>
+        <script src="js/pdfmake.min.js"></script>
+        <script src="js/vfs_fonts.js"></script>
+
+        <script>
+           $(document).ready(function() {
+                var table = $('#datatablesSimple').DataTable({
+                    buttons:['copy', 'csv', 'excel', 'pdf', 'print'] 
+                });
+
+                table.buttons().container()
+                .appendTo('#datatablesSimple_wrapper .col-md-6:eq(0)');
+            } );
+        </script>
     </body>
 </html>
