@@ -2,7 +2,7 @@
     session_start();
 
     // Membuat koneksi ke database
-    $connect = mysqli_connect("localhost", "root", "", "kasir-gudang"); // ("alamat database", "username database", "password database", "nama database")
+    $connect = mysqli_connect("localhost", "root", "", "stok-benings"); // ("alamat database", "username database", "password database", "nama database")
 
     // Menambah barang baru
     if(isset($_POST['save_barang'])){
@@ -51,7 +51,7 @@
     // Menambah barang keluar
     if(isset($_POST['save_keluar'])){
         $barang_keluar = $_POST['barang_keluar'];
-        $supplier_keluar = $_POST['supplier_keluar'];
+        $pembeli = $_POST['pembeli'];
         $qty = $_POST['qty'];
         $keterangan_keluar = $_POST['keterangan_keluar'];
 
@@ -61,7 +61,7 @@
         $current_stok = $getdata['stok']; // ambil data stok sekarang
         $final_stok = $current_stok - $qty; // stok sekarang dikurang qty barang keluar
 
-        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, id_supplier, qty, keterangan_keluar) VALUES('$barang_keluar', '$supplier_keluar', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
+        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, pembeli, qty, keterangan_keluar) VALUES('$barang_keluar', '$pembeli', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
         $update_stok_keluar = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_keluar'"); // update data stok di tabel barang
 
         if ($tambah_barang_keluar && $update_stok_keluar) {

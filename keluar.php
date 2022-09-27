@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Barang Keluar - Kasir Gudang</title>
+        <title>Barang Keluar - Bening's</title>
         <link href="css/datatables-style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
@@ -19,7 +19,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">KASIR GUDANG</a>
+            <a class="navbar-brand ps-3" href="index.php">BENING'S MEMUT</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -70,7 +70,7 @@
                                         <tr>
                                             <th>Tanggal</th>
                                             <th>Nama Barang</th>
-                                            <th>Supplier</th>
+                                            <th>Pembeli</th>
                                             <th>Jumlah</th>
                                             <th>Keterangan</th>
                                         </tr>
@@ -78,18 +78,18 @@
                                     <tbody>
                                         
                                         <?php
-                                            $getdata_keluar = mysqli_query($connect, "SELECT * FROM keluar INNER JOIN barang ON barang.id = keluar.id_barang INNER JOIN supplier ON supplier.id = keluar.id_supplier");
+                                            $getdata_keluar = mysqli_query($connect, "SELECT * FROM keluar INNER JOIN barang ON barang.id = keluar.id_barang");
                                             foreach($getdata_keluar as $data){
                                                 $tanggal = $data['tanggal'];
                                                 $nama_barang = $data['nama_barang'];
-                                                $supplier = $data['nama_supplier'];
+                                                $pembeli = $data['pembeli'];
                                                 $jumlah = $data['qty'];
                                                 $keterangan = $data['keterangan_keluar'];
                                         ?>
                                             <tr>
                                                 <td><?= $tanggal ?></td>
                                                 <td><?= $nama_barang ?></td>
-                                                <td><?= $supplier ?></td>
+                                                <td><?= $pembeli ?></td>
                                                 <td><?= $jumlah ?></td>
                                                 <td><?= $keterangan ?></td>
                                             </tr>
@@ -106,7 +106,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Saya Sendiri 2022</div>
+                            <div class="text-muted">Copyright &copy; Bening's Medan SUMUT 2022</div>
                         </div>
                     </div>
                 </footer>
@@ -160,21 +160,8 @@
                         <!-- Select data supplier -->
                         <div class="row pt-3">
                             <div class="col">
-                                <label for="supplier_keluar" class="form-label"><small>Nama Supplier</small></label>
-                                <select name="supplier_keluar" id="supplier_keluar" class="form-control">
-                                    <?php
-                                        $data_supplier = mysqli_query($connect, "SELECT * FROM supplier");
-                                        while($datas = mysqli_fetch_array($data_supplier) ){
-                                            $id = $datas['id'];
-                                            $nama_supplier = $datas['nama_supplier'];
-                                    ?>
-                                    
-                                    <option value="<?= $id; ?>"> <?= $nama_supplier; ?> </option>
-
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
+                                <label for="supplier_keluar" class="form-label"><small>Pembeli</small></label>
+                                <input type="text" name="pembeli" id="pembeli" placeholder="Pembeli" class="form-control">
                             </div>
                         </div>
                         <div class="row pt-3">
