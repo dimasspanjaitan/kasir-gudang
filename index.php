@@ -11,16 +11,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+<<<<<<< HEAD
         <title>Stok Barang - Bening's</title> 
+=======
+        <title>Stok Barang - Gudang</title> 
+>>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
         <link href="css/datatables-style.css" rel="stylesheet" /> <!-- memanggil resource tampilan table -->
         <link href="css/styles.css" rel="stylesheet" /> <!-- memanggil resource tampilan keseluruhan -->
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script> <!-- memanggil resource untuk font dan icon -->
     </head>
     <body class="sb-nav-fixed">
-        <!-- Header kasir -->
+        <!-- Header -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
+<<<<<<< HEAD
             <a class="navbar-brand ps-3" href="index.php">BENING'S MEMUT</a> <!-- menampilkan logo atau nama gudang -->
+=======
+            <a class="navbar-brand ps-3" href="index.php">GUDANG</a> <!-- menampilkan logo atau nama gudang -->
+>>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button> <!-- untuk menyembunyikan dan menampilkan sidebar -->
         </nav>
@@ -32,10 +40,27 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Stok Barang
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Data Master
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link active" href="index.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                        Stok Barang
+                                    </a>
+                                    <a class="nav-link" href="supplier.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Supplier
+                                    </a>
+                                    <a class="nav-link" href="mandor.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
+                                        Mandor
+                                    </a>
+                                </nav>
+                            </div>
+                            
                             <a class="nav-link" href="masuk.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-down"></i></div>
                                 Barang Masuk
@@ -44,9 +69,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
                             </a>
-                            <a class="nav-link" href="supplier.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
-                                Supplier
+                            
+                            <a class="nav-link" href="laporan.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
+                                Laporan
                             </a>
                         </div>
                     </div>
@@ -112,7 +138,11 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
+<<<<<<< HEAD
                             <div class="text-muted">Copyright &copy; Bening's Medan SUMUT 2022</div>
+=======
+                            <div class="text-muted">Copyright &copy; Christin Lubis 2022</div>
+>>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
                         </div>
                     </div>
                 </footer>
@@ -144,9 +174,9 @@
                                 <input type="text" name="nama_barang" placeholder="Nama Barang" class="form-control" required>
                             </div>
                             <!-- jumlah qty -->
-                            <div class="col">
+                            <!-- <div class="col">
                                 <input type="number" name="stok" placeholder="Jumlah Stok" class="form-control" required>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row pt-3">
                             <!-- deskripsi -->

@@ -7,10 +7,10 @@
     // Menambah barang baru
     if(isset($_POST['save_barang'])){
         $nama_barang = $_POST['nama_barang'];
-        $stok = $_POST['stok'];
+        // $stok = $_POST['stok'];
         $deskripsi = $_POST['deskripsi'];
 
-        $tambah_barang = mysqli_query($connect, "INSERT INTO barang (nama_barang, stok, deskripsi) VALUES('$nama_barang','$stok','$deskripsi')");
+        $tambah_barang = mysqli_query($connect, "INSERT INTO barang (nama_barang, deskripsi) VALUES('$nama_barang', '$deskripsi')");
 
         if ($tambah_barang) {
             header('location:index.php');
@@ -36,11 +36,12 @@
         $final_stok = $current_stok + $qty; // stok sekarang ditambah qty barang masuk yang diunput di modal
 
         // Ini menyimpan data ke table data barang masuk
-        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')");
+        $tambah_barang_masuk = mysqli_query($connect, "INSERT INTO masuk (id_barang, id_supplier, id_user, qty_masuk, keterangan_masuk) VALUES('$barang_masuk', '$supplier_masuk', '$user_masuk', '$qty', '$keterangan_masuk')");
+        $transaksi_masuk = mysqli_query($connect, "INSERT INTO trx_log (id_barang, tipe, qty, current_stok) VALUES('$barang_masuk', 1, '$qty', '$final_stok')");
         // meng-update data yang ada di stok
         $update_stok_masuk = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_masuk'");
 
-        if ($tambah_barang_masuk && $update_stok_masuk) {
+        if ($tambah_barang_masuk && $transaksi_masuk && $update_stok_masuk) {
             header('location:masuk.php');
         }else{
             echo 'gagal';
@@ -51,7 +52,12 @@
     // Menambah barang keluar
     if(isset($_POST['save_keluar'])){
         $barang_keluar = $_POST['barang_keluar'];
+<<<<<<< HEAD
         $pembeli = $_POST['pembeli'];
+=======
+        $mandor_keluar = $_POST['mandor_keluar'];
+        $user_keluar = $_POST['user_keluar'];
+>>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
         $qty = $_POST['qty'];
         $keterangan_keluar = $_POST['keterangan_keluar'];
 
@@ -61,10 +67,15 @@
         $current_stok = $getdata['stok']; // ambil data stok sekarang
         $final_stok = $current_stok - $qty; // stok sekarang dikurang qty barang keluar
 
+<<<<<<< HEAD
         $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, pembeli, qty, keterangan_keluar) VALUES('$barang_keluar', '$pembeli', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
+=======
+        $tambah_barang_keluar = mysqli_query($connect, "INSERT INTO keluar (id_barang, id_mandor, id_user, qty_keluar, keterangan_keluar) VALUES('$barang_keluar', '$mandor_keluar', '$user_keluar', '$qty', '$keterangan_keluar')"); // menyimpan data barang keluar
+        $transaksi_keluar = mysqli_query($connect, "INSERT INTO trx_log (id_barang, tipe, qty, current_stok) VALUES('$barang_keluar', 2, '$qty', '$final_stok')");
+>>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
         $update_stok_keluar = mysqli_query($connect, "UPDATE barang SET stok='$final_stok' WHERE id='$barang_keluar'"); // update data stok di tabel barang
 
-        if ($tambah_barang_keluar && $update_stok_keluar) {
+        if ($tambah_barang_keluar && $transaksi_keluar && $update_stok_keluar) {
             header('location:keluar.php');
         }else{
             echo 'gagal';
@@ -86,6 +97,22 @@
         }else{
             echo 'gagal';
             header('location:supplier.php');
+        }
+    }
+
+    // Menambah mandor baru
+    if(isset($_POST['save_mandor'])){
+        $nama_mandor = $_POST['nama_mandor'];       
+        $phone_mandor = $_POST['phone_mandor'];       
+        $keterangan_mandor = $_POST['keterangan_mandor'];
+
+        $tambah_mandor = mysqli_query($connect, "INSERT INTO mandor (nama_mandor, phone_mandor, keterangan_mandor) VALUES('$nama_mandor', '$phone_mandor','$keterangan_mandor')");
+        
+        if ($tambah_mandor) {
+            header('location:mandor.php');
+        }else{
+            echo 'gagal';
+            header('location:mandor.php');
         }
     }
 ?>

@@ -11,31 +11,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-<<<<<<< HEAD
-        <title>Supplier - Bening's</title>
-=======
-        <title>Supplier - Gudang</title>
->>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
-        <link href="css/datatables-style.css" rel="stylesheet" />
+        <title>Laporan - Gudang</title>
+        <!-- <link href="css/datatables-style.css" rel="stylesheet" /> -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap5.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/buttons.bootstrap5.min.css"/>
         <script src="js/font-awesome.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-		<!-- TOPBAR HEADER -->
+        <!-- TOPBAR HEADER -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-<<<<<<< HEAD
-            <a class="navbar-brand ps-3" href="index.php">BENING'S MEMUT</a>
-=======
             <a class="navbar-brand ps-3" href="index.php">GUDANG</a>
->>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
-		
-		<!-- KONTEN -->
+
+        <!-- KONTEN -->
         <div id="layoutSidenav">
-			<!-- SIDEBAR -->
+            <!-- SIDEBAR -->
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -50,7 +44,7 @@
                                         <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                         Stok Barang
                                     </a>
-                                    <a class="nav-link active" href="supplier.php">
+                                    <a class="nav-link" href="supplier.php">
                                         <div class="sb-nav-link-icon"><i class="fas fa-parachute-box"></i></div>
                                         Supplier
                                     </a>
@@ -68,7 +62,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-double-up"></i></div>
                                 Barang Keluar
                             </a>
-                            <a class="nav-link" href="laporan.php">
+                            <a class="nav-link active" href="laporan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
                                 Laporan
                             </a>
@@ -81,121 +75,85 @@
                     </div>
                 </nav>
             </div>
-			
-			<!-- KONTEN -->
+
+            <!-- ISI KONTEN -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-						<!-- JUDUL -->
-                        <h1 class="mt-4">Data Supplier</h1>
+                        <!-- JUDUL -->
+                        <h1 class="mt-4">Laporan</h1> 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <!-- Button to Open the Modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                                    Tambah
-                                </button>
-                            </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Telepon</th>
-                                            <th>Keterangan</th>
+                                            <th>Tanggal</th>
+                                            <th>Nama Barang</th>
+                                            <th>Stok Awal</th>
+                                            <th>Tipe</th>
+                                            <th>Jumlah</th>
+                                            <th>Stok Akhir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
                                         <?php
-                                            $getdata_supplier = mysqli_query($connect, "SELECT * FROM supplier");
-                                            foreach($getdata_supplier as $datas){
-                                                $id = $datas['id'];
-                                                $nama_supplier = $datas['nama_supplier'];
-                                                $alamat = $datas['alamat'];
-                                                $telp = $datas['telp'];
-                                                $keterangan = $datas['keterangan_supplier'];
+                                            $getdata_laporan = mysqli_query($connect, "SELECT * FROM trx_log LEFT JOIN barang ON barang.id = trx_log.id_barang ORDER BY trx_log.tanggal DESC");
+                                            foreach($getdata_laporan as $data){
+                                                $tanggal = $data['tanggal'];
+                                                $nama_barang = $data['nama_barang'];
+                                                $stok_awal = $data['current_stok'] - $data['qty'];
+                                                $tipe = $data['tipe'] == 1 ? "Masuk" : "Keluar";
+                                                $jumlah = $data['qty'];
+                                                $stok_akhir = $data['current_stok'];
                                         ?>
                                             <tr>
-                                                <td width="5px"><?= $id ?></td>
-                                                <td><?= $nama_supplier ?></td>
-                                                <td><?= $alamat ?></td>
-                                                <td><?= $telp ?></td>
-                                                <td><?= $keterangan ?></td>
+                                                <td><?= $tanggal ?></td>
+                                                <td><?= $nama_barang ?></td>
+                                                <td><?= $stok_awal ?></td>
+                                                <td><?= $tipe ?></td>
+                                                <td><?= $jumlah ?></td>
+                                                <td><?= $stok_akhir ?></td>
                                             </tr>
                                         <?php
                                             }
                                         ?>
+                                    
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </main>
-				
-				<!-- FOOTER -->
+
+                <!-- FOOTER -->
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-<<<<<<< HEAD
-                            <div class="text-muted">Copyright &copy; Bening's Medan SUMUT 2022</div>
-=======
                             <div class="text-muted">Copyright &copy; Christin Lubis 2022</div>
->>>>>>> 2f25da4d76b676add21cf5d9f043b8273c48a44d
                         </div>
                     </div>
                 </footer>
             </div>
         </div>
+
         <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+
+        <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/datatables.min.js"></script>
+        <script src="js/pdfmake.min.js"></script>
+        <script src="js/vfs_fonts.js"></script>
+
+        <script>
+           $(document).ready(function() {
+                var table = $('#datatablesSimple').DataTable({
+                    buttons:['copy', 'csv', 'excel', 'pdf', 'print'] 
+                });
+
+                table.buttons().container()
+                .appendTo('#datatablesSimple_wrapper .col-md-6:eq(0)');
+            } );
+        </script>
     </body>
-
-   <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <form method="POST">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Tambah Supplier</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" name="nama_supplier" placeholder="Nama" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col">
-                                <input type="text" name="alamat" placeholder="Alamat" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col">
-                                <input type="text" name="telp" placeholder="Nomor Telp: 08xx-xxxx-xxxx" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col">
-                                <input type="text" name="keterangan_supplier" placeholder="Keterangan" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" name="save_supplier">Simpan</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
 </html>
